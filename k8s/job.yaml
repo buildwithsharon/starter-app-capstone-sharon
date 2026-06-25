@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: config-check
+  namespace: capstone
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+        - name: config-check
+
+          image: busybox:1.36
+
+          command:
+            - sh
+            - -c
+            - |
+              echo "===== CONFIGMAP ====="
+              echo "APP_NAME=$APP_NAME"
+              echo "APP_VERSION=$APP_VERSION"
+              echo "GREETING=$GREETING"
+              echo "PORT=$PORT"
+              echo "REDIS_HOST=$REDIS_HOST"
+              echo "REDIS_PORT=$REDIS_PORT"
+
+              echo ""
+
+              echo "===== SECRET ====="
+              echo "REDIS_PASSWORD=$REDIS_PASSWORD"
+
+          envFrom:
+            - configMapRef:
+                name: starter-app-config
+            - secretRef:
+                name: redis-secret
