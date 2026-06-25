@@ -19,11 +19,13 @@ spec:
 
     spec:
       containers:
-      - name: starter-app
+        - name: starter-app
+          image: starter-app:1.0.0
+          imagePullPolicy: Never
 
-        image: starter-app:1.0.0
+          envFrom:
+            - configMapRef:
+                name: starter-app-config
 
-        imagePullPolicy: Never
-
-        ports:
-        - containerPort: 8080
+          ports:
+            - containerPort: 8080
