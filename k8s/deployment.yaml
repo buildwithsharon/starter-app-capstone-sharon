@@ -26,6 +26,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: starter-app-config
+            - secretRef:
+                name: redis-secret
 
           ports:
             - containerPort: 8080
