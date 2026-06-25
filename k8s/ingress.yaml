@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: starter-app-ingress
+  namespace: capstone
+
+spec:
+  ingressClassName: traefik
+
+  rules:
+    - host: starter-app.local
+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+
+            backend:
+              service:
+                name: starter-app-service
+                port:
+                  number: 80
